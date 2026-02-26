@@ -17,10 +17,8 @@
     background-image: 
       radial-gradient(circle at 20% 30%, rgba(188, 19, 254, 0.1) 0%, transparent 40%),
       radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.1) 0%, transparent 40%),
-      radial-gradient(circle at 50% 50%, rgba(0, 255, 65, 0.05) 0%, transparent 50%),
-      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-      linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 2px, 3px 100%;
+      radial-gradient(circle at 50% 50%, rgba(0, 255, 65, 0.05) 0%, transparent 50%);
+    background-size: 100% 100%;
     background-attachment: fixed;
   }
 
@@ -75,5 +73,26 @@
   60% { transform: translate(2px, 2px); }
   80% { transform: translate(2px, -2px); }
   100% { transform: translate(0); }
+}
+
+@utility neon-glow-purple {
+  text-shadow: 0 0 5px rgba(188, 19, 254, 0.5), 0 0 10px rgba(188, 19, 254, 0.3);
+}
+
+@utility neon-glow-purple-strong {
+  text-shadow: 0 0 10px rgba(188, 19, 254, 0.8), 0 0 20px rgba(188, 19, 254, 0.5), 0 0 30px rgba(188, 19, 254, 0.3);
+}
+
+@utility neon-glow-green {
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.8), 0 0 20px rgba(0, 255, 65, 0.5);
+}
+
+.cyber-nav-link {
+  @apply px-4 py-1 bg-transparent border border-cyber-green/30 text-cyber-green uppercase font-bold text-sm transition-all hover:bg-cyber-green/10 hover:border-cyber-green hover:shadow-[0_0_15px_rgba(0,255,65,0.4)];
+  clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+}
+
+.cyber-nav-link:hover {
+  @apply neon-glow-green;
 }
 

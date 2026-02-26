@@ -140,7 +140,15 @@ async function startServer() {
     res.send(`<html><body><script>window.opener.postMessage({ type: 'OAUTH_AUTH_SUCCESS' }, '*');window.close();</script></body></html>`);
   });
 
-  app.get('/api/me', (req: any, res) => res.json(req.user || null));
+  app.get('/api/me', (req: any, res) => {
+    const user = req.user;
+    if (user) {
+      // Simple admin check: specific email or first user
+      const isAdmin = user.email === 'kmhnashville@gmail.com';
+      return res.json({ ...user, isAdmin });
+    }
+    res.json(null);
+  });
 
   // RSS Feed
   app.get('/rss.xml', (req, res) => {

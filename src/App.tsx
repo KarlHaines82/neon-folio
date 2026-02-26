@@ -69,42 +69,42 @@ const Navbar = ({ user, onLogin }: { user: User | null, onLogin: (provider: 'goo
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-cyber-black/40 backdrop-blur-xl border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2 text-cyber-pink font-bold text-xl tracking-tighter">
-          <Terminal size={24} />
+    <nav className="fixed top-0 left-0 w-full z-50 bg-cyber-black/40 backdrop-blur-xl border-b border-white/10 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between relative z-10">
+        <div className="flex items-center gap-2 text-cyber-pink font-bold text-2xl tracking-tighter">
+          <Terminal size={28} />
           <span className="glitch-text">NEON_PORTFOLIO v1.0</span>
         </div>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
           {['Bio', 'Skills', 'Services', 'Blog', 'Contact'].map((item) => (
             <a 
               key={item} 
               href={`#${item.toLowerCase()}`} 
-              className="text-sm uppercase tracking-widest hover:text-cyber-cyan transition-colors"
+              className="cyber-nav-link"
             >
               {item}
             </a>
           ))}
           {user ? (
             <div className="flex items-center gap-3 border-l border-white/10 pl-6">
-              <img src={user.avatar_url} alt={user.username} className="w-8 h-8 rounded-full border border-cyber-pink" />
-              <span className="text-xs text-cyber-pink">{user.username}</span>
-              <button onClick={() => fetch('/api/logout').then(() => window.location.reload())} className="text-gray-500 hover:text-red-500">
-                <LogOut size={18} />
+              <img src={user.avatar_url} alt={user.username} className="w-10 h-10 rounded-full border-2 border-cyber-pink" />
+              <span className="text-sm font-bold text-cyber-pink uppercase">{user.username}</span>
+              <button onClick={() => fetch('/api/logout').then(() => window.location.reload())} className="text-gray-500 hover:text-red-500 transition-colors">
+                <LogOut size={20} />
               </button>
             </div>
           ) : (
             <div className="flex items-center gap-4">
-              <button onClick={() => onLogin('github')} className="flex items-center gap-2 text-xs uppercase hover:text-cyber-cyan">
-                <Github size={16} /> Login
+              <button onClick={() => onLogin('github')} className="cyber-nav-link flex items-center gap-2">
+                <Github size={16} /> LOGIN
               </button>
             </div>
           )}
         </div>
 
         <button className="md:hidden text-cyber-pink" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X /> : <Menu />}
+          {isOpen ? <X size={32} /> : <Menu size={32} />}
         </button>
       </div>
 
@@ -114,14 +114,14 @@ const Navbar = ({ user, onLogin }: { user: User | null, onLogin: (provider: 'goo
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden bg-cyber-black border-b border-cyber-green/20 p-4 flex flex-col gap-4"
+            className="md:hidden bg-cyber-black/90 backdrop-blur-2xl border-b border-white/10 p-6 flex flex-col gap-4 relative z-50"
           >
             {['Bio', 'Skills', 'Services', 'Blog', 'Contact'].map((item) => (
               <a 
                 key={item} 
                 href={`#${item.toLowerCase()}`} 
                 onClick={() => setIsOpen(false)}
-                className="text-sm uppercase tracking-widest hover:text-cyber-green"
+                className="cyber-nav-link text-center py-3"
               >
                 {item}
               </a>
@@ -197,11 +197,6 @@ const BlogPostCard = ({ post }: { post: BlogPost }) => (
     {/* Animated Background Gradient */}
     <div className="absolute inset-0 bg-gradient-to-r from-cyber-purple/0 via-cyber-purple/5 to-cyber-purple/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
     
-    {/* Scanning Line Effect */}
-    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity">
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-cyber-purple shadow-[0_0_15px_rgba(188,19,254,1)] animate-[scanline_2s_linear_infinite]" />
-    </div>
-
     <div className="relative flex flex-col md:flex-row gap-6 z-10">
       <div className="md:w-1/4">
         <span className="text-xs text-cyber-purple/40 font-mono group-hover:text-cyber-purple/80 transition-colors">
@@ -216,10 +211,10 @@ const BlogPostCard = ({ post }: { post: BlogPost }) => (
         </div>
       </div>
       <div className="md:w-3/4">
-        <h3 className="text-2xl mb-3 text-white group-hover:text-cyber-purple group-hover:drop-shadow-[0_0_8px_rgba(188,19,254,0.8)] transition-all duration-300 uppercase tracking-tighter">
+        <h3 className="text-2xl mb-3 text-white group-hover:text-cyber-purple group-hover:neon-glow-purple-strong transition-all duration-300 uppercase tracking-tighter">
           {post.title}
         </h3>
-        <p className="text-gray-500 text-sm line-clamp-2 mb-6 group-hover:text-gray-300 transition-colors leading-relaxed">
+        <p className="text-gray-500 text-sm line-clamp-2 mb-6 group-hover:text-gray-300 group-hover:neon-glow-purple transition-all duration-300 leading-relaxed">
           {post.excerpt}
         </p>
         <div className="flex items-center gap-4 text-[10px] uppercase tracking-[0.2em] text-cyber-purple/60 group-hover:text-cyber-purple transition-all">
@@ -324,10 +319,19 @@ export default function App() {
             Senior Systems Architect & Full-Stack Engineer specializing in high-performance distributed systems and immersive web experiences.
           </p>
           <div className="flex flex-wrap gap-6">
-            <button className="cyber-button-pink">Download_Resume.pdf</button>
-            <button className="text-cyber-cyan uppercase tracking-widest text-sm flex items-center gap-2 hover:gap-4 transition-all">
-              View_Projects <Briefcase size={18} />
-            </button>
+            <a 
+              href="/resume.pdf" 
+              download 
+              className="cyber-button-pink flex items-center gap-2"
+            >
+              Download_Resume.pdf <Download size={18} />
+            </a>
+            <a 
+              href="#services"
+              className="text-cyber-cyan uppercase tracking-widest text-sm flex items-center gap-2 hover:gap-4 transition-all"
+            >
+              View_Services <Briefcase size={18} />
+            </a>
           </div>
         </motion.div>
 
@@ -507,9 +511,6 @@ export default function App() {
           </div>
         </div>
       </footer>
-
-      {/* CRT Overlay Effect */}
-      <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
     </div>
   );
 }
